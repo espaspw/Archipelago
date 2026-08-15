@@ -260,6 +260,8 @@ class LWNWorld(World):
         trap_weights = []
         trap_weights += (["Bonk Trap"] * self.options.bonk_trap_weight.value)
         trap_weights += (["Mana Drain Trap"] * self.options.mana_drain_trap_weight.value)
+        trap_weights += (["Darkness Trap"] * self.options.darkness_trap_weight.value)
+        trap_weights += (["Shrink Trap"] * self.options.shrink_trap_weight.value)
         trap_count = 0 if (len(trap_weights) == 0) else math.ceil(remaining_items_needed * (self.options.trap_fill_percentage.value / 100.0))
         remaining_items_needed -= trap_count
 

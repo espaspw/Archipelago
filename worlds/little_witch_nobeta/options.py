@@ -162,21 +162,18 @@ class RandomizeJugs(DefaultOffToggle):
     """
     Breaking a jug will grant a check.
     """
-    visibility = Visibility.none
     display_name = "Jugsanity"
     
 class RandomizeBarrels(DefaultOffToggle):
     """
     Breaking a barrel will grant a check.
     """
-    visibility = Visibility.none
     display_name = "Barrelsanity"
     
 class RandomizeBrokenDolls(DefaultOffToggle):
     """
     Breaking a broken doll will grant a check.
     """
-    visibility = Visibility.none
     display_name = "Dollsanity"
     
 class RandomizeLightOrb(DefaultOffToggle):
@@ -303,6 +300,7 @@ class SoulGainBaseValue(Range):
     """
     Whenever the randomizer would add souls to your inventory it will at least add this amount.
     """
+    visibility = Visibility.none
     display_name = "Soul gain base value"
     range_start = 1
     range_end = 1000
@@ -313,6 +311,7 @@ class SoulGainFactor(Range):
     Whenever the randomizer would add souls to your inventory it will multiply the soul gain base value with
     a factor randomly chosen between 1 and the configured soul gain factor.
     """
+    visibility = Visibility.none
     display_name = "Soul gain factor"
     range_start = 1
     range_end = 100
@@ -333,10 +332,20 @@ class FillerSoulsWeight(Range):
     Weight of a filler being souls, where (weight / total weight of all filler) is the likelihood.
     Can be any type (Soul Essense, HP Souls, MP Souls) and a random amount.
     """
-    display_name = "Filler Crystal Weight"
+    display_name = "Filler Souls Weight"
     range_start = 0
     range_end = 100
     default = 0
+
+class FillerSoulsAmount(Range):
+    """
+    Amount of souls the soul essense filler item gives you. It is recommended to tune this down when playing
+    with settings with lots of filler locations such as jugsanity, or Nobeta may get overpowered too quickly.
+    """
+    display_name = "Filler Souls Amount"
+    range_start = 0
+    range_end = 10000
+    default = 100
 
 class TrapFillPercentage(Range):
     """
@@ -363,6 +372,26 @@ class BonkTrapWeight(Range):
     A bonk trap launches Nobeta in a random direction.
     """
     display_name = "Bonk trap weight"
+    range_start = 0
+    range_end = 100
+    default = 0
+
+class DarknessTrapWeight(Range):
+    """
+    Weight of a trap being a Darkness Trap, where (weight / total weight of all traps) is the likelihood.
+    A darkness trap severely reduces Nobeta's visibility for 30 seconds.
+    """
+    display_name = "Darkness trap weight"
+    range_start = 0
+    range_end = 100
+    default = 0
+
+class ShrinkTrapWeight(Range):
+    """
+    Weight of a trap being a Shrink Trap, where (weight / total weight of all traps) is the likelihood.
+    A shrink trap makes Nobeta smol for 30 seconds, and may affect jump height and hitbox.
+    """
+    display_name = "Shrink trap weight"
     range_start = 0
     range_end = 100
     default = 0
@@ -414,9 +443,12 @@ lwn_option_groups = [
     OptionGroup("Filler Options", [
         FillerCrystalWeight,
         FillerSoulsWeight,
+        FillerSoulsAmount,
         TrapFillPercentage,
         ManaDrainTrapWeight,
         BonkTrapWeight,
+        DarknessTrapWeight,
+        ShrinkTrapWeight,
     ]),
 ]
     
@@ -456,7 +488,10 @@ class LWNOptions(PerGameCommonOptions):
     soul_gain_factor: SoulGainFactor
     filler_crystal_weight: FillerCrystalWeight
     filler_souls_weight: FillerSoulsWeight
+    filler_souls_amount: FillerSoulsAmount
     trap_fill_percentage: TrapFillPercentage
     mana_drain_trap_weight: ManaDrainTrapWeight
     bonk_trap_weight: BonkTrapWeight
+    darkness_trap_weight: DarknessTrapWeight
+    shrink_trap_weight: ShrinkTrapWeight
     death_link: DeathLink

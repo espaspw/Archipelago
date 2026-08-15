@@ -62,6 +62,8 @@ filler_souls_items: Dict[str, str] = {
 trap_items: Dict[str, str] = {
     "Bonk Trap": "Trap",
     "Mana Drain Trap": "Trap",
+    "Darkness Trap": "Trap",
+    "Shrink Trap": "Trap",
 }
 
 lore_items: Dict[str, str] = {
